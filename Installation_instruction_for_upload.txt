@@ -1,0 +1,96 @@
+
+
+-------------   Установка Laravel под LAMP на виртуалке. Инструкция ---------------------
+(инструкция ориентирована на хост с Win10 Pro с Hyper-V и гостевую ОС Ubuntu)
+
+
++) создать виртуалку c ОС Ubuntu
++) установить фиксированный ip
++) отключить блокировку экрана (Settings -> Privacy -> Screen Lock)
+
++) Enable SSH on Ubuntu. См. https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-18-04/
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo ufw allow ssh
+
++) Install RDP
+sudo apt install xrdp
+sudo systemctl status xrdp
+sudo adduser xrdp ssl-cert
+	Edit the file /etc/xrdp/xrdp.ini
+	Modify the parameters as follows :
+	port = tcp: //: 3389
+	use_vsock = false
+	Then restart the xrdp service: 
+sudo systemctl start xrdp
+(don't forget to allow port 3389 in the ufw firewall if in use)
+
++) Install LAMP, https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-20-04
+sudo apt update
+sudo apt upgrade
+sudo apt install apache2
+sudo apt install mysql-server
+sudo mysql_secure_installation
+	levels of password validation policy: 2
+	password for root here: [СЛОЖНЫЙ ПАРОЛЬ]
+	Remove anonymous users? y
+	Disallow root login remotely? y
+	Remove test database and access to it? y
+	Reload privilege tables now? y
+sudo apt install php libapache2-mod-php php-mysql
+
++) Изменить способ аутентификации для mysql root
+sudo mysql
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[СЛОЖНЫЙ ПАРОЛЬ]';
+mysql> flush privileges;
+
++) Install MySQL Workbench
+через XRDP Ubuntu Software
+Permissions -> Read ... saved passwords
+
++) Install the CIFS Utils pkg
+sudo apt-get install cifs-utils
+
++) Install Composer, https://losst.ru/ustanovka-composer-ubuntu-16-04
+sudo apt update
+sudo apt install curl php-cli php-mbstring git unzip
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+composer
+
++) sudo apt-get install php-xml   Что это, пока непонятно. Но без этого не работает. 
+см. https://www.php.net/manual/ru/dom.installation.php
+
++) создать директорию для учебного проекта
+sudo mkdir /var/www/Homestead
+
++) Установку Laravel запускать из /var/www/Homestead, т.е. 
+cd /var/www/Homestead. 
+При установке будет создана поддиректория с проектом. Имя проекта указывается в команде ниже. В данном примере - 'code'.
+перед установкой сменить права, чтобы composer смог записывать в /var/www/Homestead. sudo chmod o+w -R /var/www/Homestead
+composer create-project laravel/laravel code
+после установки еще раз сменить права (иначе Laravel не сможет записывать в созданный проект)
+sudo chmod o+w -R /var/www/Homestead/code
+
++) для апача настроить AllowOverride All, см. https://stackoverflow.com/questions/11791375/my-routes-are-returning-a-404-how-can-i-fix-them
+Enable mod_rewrite on the apache server: sudo a2enmod rewrite.
+Edit /etc/apache2/apache2.conf, changing the "AllowOverride" directive for the /var/www directory (which is my main document root): AllowOverride All
+Then restart the Apache server: service apache2 restart
+
++) настроить, чтобы апач смотрел в /var/www/Homestead/code/public
+
+sudo nano /etc/apache2/sites-available/laravel.conf
+	<VirtualHost *:80>                                                                       
+		#    ServerName your_domain                                                              
+		#    ServerAlias www.your_domain
+		#    Alias /shop /var/www/shop/public
+		ServerAdmin webmaster@localhost                                                          
+		DocumentRoot /var/www/Homestead/code/public
+		ErrorLog ${APACHE_LOG_DIR}/error.log                                                     
+		CustomLog ${APACHE_LOG_DIR}/access.log combined                                      
+	</VirtualHost>
+sudo a2ensite laravel
+sudo a2dissite 000-default
+sudo systemctl reload apache2
+// апач смотрит в /var/www/Homestead/code/public. Для вызова из браузера просто набрать http://[МОЙ АДРЕС]/   Должна отобразиться стартовая страница Laravel
