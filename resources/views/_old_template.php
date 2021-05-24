@@ -20,6 +20,7 @@
     </head>
     <body class="antialiased" id="body">
             <header>
+                <br>
                 <?= $menu ?>
                 <div><?php echo($header); ?></div>
                 <hr>    
