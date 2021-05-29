@@ -28,6 +28,8 @@
         <a href="/">Главная</a>
         <a href="/cat">Категории новостей</a>
         <a href="/admnews">Управление новостями</a>
+        <a href="/downlreq">Заказ на выгрузку</a>
+        <a href="/feedback">Обратная связь</a>
     </nav>
 @endsection
 
@@ -38,7 +40,6 @@
         <div style='color: crimson'><br><br>Для создания новости требуется хотя бы одна категория новостей</div>
     @else    
         <div>
-            <br>
             <div style='display: inline-block; width: 200px'>Номер категории</div>
             <select style='width: 208px' id='selectedCategory'>
             @foreach($cats_list as $value)

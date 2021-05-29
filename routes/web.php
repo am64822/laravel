@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\{CategoriesController, FeedbackController, Download_requestController};
 use App\Http\Controllers\News_cat_adm\News_admController;
 
 /*
@@ -44,3 +44,7 @@ Route::get('/admnews', function () { // основная страница адм
     return view('News_cat_adm/news_add_single');
 });*/
 Route::get('/newsadd', [News_admController::class, 'create']); // добавление новости
+Route::get('/feedback', [FeedbackController::class, 'show']); // обратная связь, показать
+Route::post('/feedback', [FeedbackController::class, 'save']); // обратная связь, сохранить
+Route::get('/downlreq', [Download_requestController::class, 'show']); // запрос на выгрузку, показать
+Route::post('/downlreq', [Download_requestController::class, 'save']); // запрос на выгрузку, сохранить
