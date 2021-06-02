@@ -1,7 +1,7 @@
 @extends('template')
 
 {{--  приходят извне 
-    $news_single - массив с массивом новостей из одной новости
+    $news_single - массив с stdClass-ом из одной новости
 --}}
 
 <?php
@@ -26,9 +26,9 @@
 
 @section('content')
     @forelse($news_single as $value)
-        <div><b>{{ $value['title'] }}</b><br>{{ $value['inform'] }}</div>
+        <div><b>{{ $value->title }}</b><br>{{ $value->content }}</div>
         <?php
-            $pageTitle .= $value['id'];
+            $pageTitle .= $value->id;
         ?>
     @empty
         <div style='color: crimson'>Запрошенной новости нет</div>

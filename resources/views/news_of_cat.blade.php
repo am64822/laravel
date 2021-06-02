@@ -6,7 +6,7 @@
 --}}
 
 <?php
-    $pageTitle = 'Новости категории ' . $cat_id;
+    $pageTitle = 'Новости категории "' . $cat_id . '"';
 ?>
 
 
@@ -28,7 +28,7 @@
 
 @section('content')
     @forelse($newsofcat as $value)
-        <div><a href="/news/{{ $value['id'] }}">{{ $value['title'] }}</a></div>       
+        <div><a href="/news/{{ $value->id }}">{{ $value->title }}</a></div>       
     @empty
         <div style='color: crimson'>Новостей указанной категории нет</div>
     @endforelse

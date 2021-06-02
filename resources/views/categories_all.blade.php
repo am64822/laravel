@@ -26,7 +26,7 @@
 
 @section('content')
     @forelse($categories as $value)
-        <div><a href="/newscat/{{ $value['id'] }}">{{ $value['title'] }}</a></div>       
+        <div><a href="/newscat/{{ $value->id }}">{{ $value->title }}</a></div>       
     @empty
         <div>Нет категорий новостей</div>
     @endforelse

@@ -10,11 +10,8 @@
 
 <?php
     $pageTitle = 'Добавить новость';
-    
-    // пока нет модели - вот таким кривым способом получение списка категорий (чтобы можно было использовать только существующую категорию)
-    use App\Http\Controllers\CategoriesController;
-    $cats_list = (new CategoriesController())->allAsArray();
-    // $cats_list = array(); // пустой массив для отладки
+    use Illuminate\Support\Facades\DB;
+    $cats_list = DB::table('categories')->get();
 ?>
 
 
@@ -35,7 +32,7 @@
 
 
 @section('content')
-    {{-- должна быть форма, но пока не совсем понятно, как ее интегрировать. Поэтому будет div --}}
+    {{-- div будет изменен на форму после изучения записи в БД через laravel --}}
     @if (count($cats_list) == 0)
         <div style='color: crimson'><br><br>Для создания новости требуется хотя бы одна категория новостей</div>
     @else    
@@ -43,7 +40,7 @@
             <div style='display: inline-block; width: 200px'>Номер категории</div>
             <select style='width: 208px' id='selectedCategory'>
             @foreach($cats_list as $value)
-                <option value="{{ $value['title'] }}">({{ $value['id'] }}) {{ $value['title'] }}</option>        
+                <option value="{{ $value->title }}">{{ $value->title }}</option>        
             @endforeach
             </select>       
             <br>    
@@ -61,7 +58,7 @@
             $script = "
                 document.getElementById('submit').addEventListener('click', (e) => {
                     alert('Создание новости в категории ' + document.getElementById('selectedCategory').value + 
-                    '. После реализации реального добавления новости здесь должен быть переход на страницу с новостями данной категории.');
+                    '. После реализации реального добавления новости в БД здесь должен быть переход на страницу с новостями данной категории.');
                 });
             ";
         ?>
