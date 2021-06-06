@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Downlreq;
 
 class Download_requestController extends Controller
 {
@@ -18,13 +19,19 @@ class Download_requestController extends Controller
             'content' => 'required'
         ]);
         
-        $ds = DIRECTORY_SEPARATOR;
-        $jsonFeedback = json_encode(array_merge(array('time' => time()), $request->only(['userName', 'phone', 'email', 'content'])));
+        $downlreq = new Downlreq();
+        $downlreq->user_name = $request->userName;
+        $downlreq->phone = $request->phone;
+        $downlreq->email = $request->email;
+        $downlreq->content = $request->content;
+        $downlreq->save();
+
+        //$ds = DIRECTORY_SEPARATOR;
+        //$jsonFeedback = json_encode(array_merge(array('time' => time()), $request->only(['userName', 'phone', 'email', 'content'])));
         //dd($jsonFeedback);
+        //file_put_contents(database_path().$ds.'downl_req', $jsonFeedback.PHP_EOL, FILE_APPEND);
 
-        file_put_contents(database_path().$ds.'downl_req', $jsonFeedback.PHP_EOL, FILE_APPEND);
-
-        return view('download_request', ['messageToUser' => 'Запрос принят.']);    
+        return view('download_request', ['messageToUser' => "Заказ номер $downlreq->id принят."]);    
     }
 
 

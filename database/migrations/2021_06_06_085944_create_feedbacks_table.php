@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSourcesTable extends Migration
+class CreateFeedbacksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sources', function (Blueprint $table) {
+        Schema::create('feedbacks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('link', 255);
-            $table->text('descr')->nullable();
-            $table->enum('status', ['published', 'hidden'])->default('published');
+            $table->string('user_name', 255);
+            $table->text('feedbacktxt');
+            $table->enum('status', ['new', 'inprg', 'decl', 'closed'])->default('new');
+            $table->unsignedBigInteger('ticket_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            $table->dateTime('hidden_at')->nullable()->comment('Источники не удаляются, а скрываются');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateSourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sources');
+        Schema::dropIfExists('feedbacks');
     }
 }

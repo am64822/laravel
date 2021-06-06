@@ -1,15 +1,32 @@
 @extends('template')
 
-{{--  приходят извне 
-    $categories
+{{--  приходят извне
+    $news
 --}}
 
 <?php
-    $pageTitle = 'Новости по категориям';
+    $pageTitle = 'Все новости';
 ?>
 
+
+
+
 @section('navPointer')
-    {{ $pageTitle }}
+    {{ $pageTitle }} 
+@endsection
+
+
+@section('content')
+
+        @forelse($news as $value)
+            <div class='news'>
+                <div class='news_title'><a href="/news/{{ $value->id }}">{{ $value->title }}</a></div>
+            </div>
+        @empty
+            <div style='color: crimson'>Новостей нет</div>
+
+        @endforelse
+
 @endsection
 
 
@@ -25,13 +42,7 @@
 @endsection
 
 
-@section('content')
-    @forelse($categories as $value)
-        <div><a href="/newscat/{{ $value->id }}">{{ $value->title }}</a></div>       
-    @empty
-        <div>Нет категорий новостей</div>
-    @endforelse
-@endsection
+
 
 
 

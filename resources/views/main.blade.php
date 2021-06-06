@@ -16,8 +16,9 @@
 @section('menu')
     <nav>
         <a href="/">Главная</a>
-        <a href="/cat">Категории новостей</a>
-        <a href="/admnews">Управление новостями</a>
+        <a href="/newsall">Все новости</a>  
+        <a href="/cat">Новости по категориям</a>
+        <a href="/adm">Управление</a>
         <a href="/downlreq">Заказ на выгрузку</a>
         <a href="/feedback">Обратная связь</a>
     </nav>

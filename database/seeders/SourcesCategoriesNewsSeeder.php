@@ -32,15 +32,25 @@ class SourcesCategoriesNewsSeeder extends Seeder
             ['source_id' => '2', 'title' => 'Категория 2'],
             ['source_id' => '3', 'title' => 'Категория 3'],
             ['source_id' => '4', 'title' => 'Категория 4'],
-            ['source_id' => '5', 'title' => 'Категория 5']
+            ['source_id' => '5', 'title' => 'Категория 5'],
+            ['source_id' => '5', 'title' => 'Категория 6']
         ]);
+        DB::table('categories')->insert([
+            ['source_id' => '5', 'title' => 'Категория 7', 'status' => 'hidden']
+        ]);
+
 
         $news_array;
         $newsCounter = 0;
         for($cat=1;$cat<=5;$cat++) {
             for($sing=1;$sing<=10;$sing++) {
                 $newsCounter +=1;
-                $news_array[] = array('category_id' => $cat, 'title' => 'Новость ' . $newsCounter, 'content' => 'Подробнее о новости '. $newsCounter);
+                if ($newsCounter % 2 != 0) {
+                    $status = 'draft';
+                } else {
+                    $status = 'published';
+                }
+                $news_array[] = array('category_id' => $cat, 'title' => 'Новость ' . $newsCounter, 'content' => 'Подробнее о новости '. $newsCounter, 'status' => $status);
             }
         }
 

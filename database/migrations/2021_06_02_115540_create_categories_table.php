@@ -17,9 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('source_id');
             $table->string('title', 255);
+            $table->enum('status', ['published', 'hidden'])->default('published');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->nullable()->default(DB::raw('NULL ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->dateTime('hidden_at')->nullable()->comment('Источники не удаляются, а скрываются');
+            $table->foreign('source_id')->references('id')->on('sources');
         });
     }
 
