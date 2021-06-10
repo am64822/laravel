@@ -51,7 +51,7 @@
             </select>       
             <br>    
             <div style='display: inline-block; width: 200px'>Заголовок <span class='crimson'>*</span></div>
-            <input type='text' name='title' style='width: 200px' value="{{ $news[0]->title }}">
+            <input type='text' name='title' style='width: 200px' value="{{ $news[0]->title }}" id='title'>
             <br>
             <div style='display: inline-block; width: 200px'>Содержание <span class='crimson'>*</span></div>
             <textarea name='content' style='width: 202px; resize: none'>{{ $news[0]->content }}</textarea>
@@ -76,7 +76,8 @@
             </select> 
             <br>
             <br>
-            <button type='submit' id='submit'>Сохранить</button>
+            <a href="/newsadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+            <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
         </form>
         @if($errors->any())
             <br>

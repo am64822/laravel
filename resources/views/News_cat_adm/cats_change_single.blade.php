@@ -49,8 +49,9 @@
                 >{{ $value->link }}</option>          
             @endforeach
             </select>       
-            <br>
+            <br>    
             <div style='display: inline-block; width: 200px'>Наименование <span class='crimson'>*</span></div>
+            <input type='hidden' name='titleInitial'value="{{ $cat[0]->title }}">
             <input type='text' name='title' style='width: 200px' value="{{ $cat[0]->title }}">
             <br>
             <div style='display: inline-block; width: 200px'>Статус</div>
@@ -68,7 +69,9 @@
             </select> 
             <br>
             <br>
-            <button type='submit' id='submit'>Сохранить</button>
+            <a href="/catsadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+            <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
+            
         </form>
         @if($errors->any())
             <br>

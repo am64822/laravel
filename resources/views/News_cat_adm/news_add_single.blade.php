@@ -57,7 +57,8 @@
             </select> 
             <br>
             <br>
-            <button type='submit' id='submit'>Сохранить</button>
+            <a href="/newsadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+            <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
         </form>
         @if($errors->any())
             <br>

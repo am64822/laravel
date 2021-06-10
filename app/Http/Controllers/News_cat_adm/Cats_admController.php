@@ -41,11 +41,13 @@ class Cats_admController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([ 
+        $this->validate($request, Category::rulesMain(), [], Category::attributesMain());
+        $this->validate($request, Category::rulesAdditional(), [], Category::attributesMain());  
+        /*$validated = $request->validate([ 
             'source_id' => 'required',
-            'title' => 'required',
+            'title' => 'required|unique:categories,title',
             'status' => 'required'
-        ]);
+        ]);*/
 
         $cat = new Category();
         $cat->source_id = $request->source_id;
@@ -89,11 +91,20 @@ class Cats_admController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([ 
+        $this->validate($request, Category::rulesMain(), [], Category::attributesMain()); 
+        /*$validated = $request->validate([ 
             'source_id' => 'required',
             'title' => 'required',
             'status' => 'required'
-        ]);
+        ]);*/
+        
+        
+        if ($request->title != $request->titleInitial) {
+            $this->validate($request, Category::rulesAdditional(), [], Category::attributesMain()); 
+            /*$validated = $request->validate([ 
+                'title' => 'unique:categories,title'
+            ]);*/
+        }
 
         $cat = (new Category())->where('id', '=', $id)->get();
         if ($cat->count() == 1) {

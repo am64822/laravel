@@ -28,7 +28,7 @@
 @section('content')  
     <form action='/downlreq' method='post'>    
         @csrf
-        <div style='display: inline-block; width: 200px'>Имя заказчика <span style='color: crimson'>*</span></div>
+        <div style='display: inline-block; width: 200px'>Имя пользователя <span style='color: crimson'>*</span></div>
         <input type='text' name='userName' style='width: 200px' value="{{ old('userName') }}">
         <br>
         <div style='display: inline-block; width: 200px'>Телефон <span style='color: crimson'>*</span></div>

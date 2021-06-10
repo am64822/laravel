@@ -18,4 +18,22 @@ class Category extends Model
         'title',
         'status'
     ];
+
+    public static function rulesMain() {
+        return ([
+            'source_id' => 'required',
+            'title' => 'required',
+            'status' => 'required'          
+        ]);
+    }
+    public static function attributesMain() {
+        return ([
+            'source_id' => "'Источник'",
+            'title' => "'Наименование'",
+            'status' => "'Статус'",         
+        ]);
+    }
+    public static function rulesAdditional() {
+        return (['title' => 'unique:categories,title']);
+    }
 }

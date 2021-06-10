@@ -53,18 +53,18 @@ Route::get('/srcadm/add', [Sources_admController::class, 'create']); // доба
 Route::post('/srcadm/add', [Sources_admController::class, 'store']); // добавление источника, сохранить
 Route::get('/srcadm/edit/{id}', [Sources_admController::class, 'edit']); // изменение источника, показать форму
 Route::post('/srcadm/edit/{id}', [Sources_admController::class, 'update']); // изменение источника, сохранить
-Route::get('/srcadm/del/{id}', [Sources_admController::class, 'destroy']); // удаление источника
+Route::delete('/srcadm/del/{id}', [Sources_admController::class, 'destroy']); // удаление источника
 
 Route::get('/catsadm', [Cats_admController::class, 'index']); // управление категориями
 Route::get('/catsadm/add', [Cats_admController::class, 'create']); // добавление категории, показать пустую форму
 Route::post('/catsadm/add', [Cats_admController::class, 'store']); // добавление категории, сохранить
 Route::get('/catsadm/edit/{id}', [Cats_admController::class, 'edit']); // изменение категории, показать форму
 Route::post('/catsadm/edit/{id}', [Cats_admController::class, 'update']); // изменение категории, сохранить
-Route::get('/catsadm/del/{id}', [Cats_admController::class, 'destroy']); // удаление категории
+Route::delete('/catsadm/del/{id}', [Cats_admController::class, 'destroy']); // удаление категории
 
 Route::get('/newsadm', [News_admController::class, 'index']); // управление новостями
 Route::get('/newsadm/add', [News_admController::class, 'create']); // добавление новости, показать пустую форму
 Route::post('/newsadm/add', [News_admController::class, 'store']); // добавление новости, сохранить
 Route::get('/newsadm/edit/{id}', [News_admController::class, 'edit']); // изменение новости, показать форму
 Route::post('/newsadm/edit/{id}', [News_admController::class, 'update']); // изменение новости, сохранить
-Route::get('/newsadm/del/{id}', [News_admController::class, 'destroy']); // удаление новости
+Route::delete('/newsadm/del/{id}', [News_admController::class, 'destroy']); // удаление новости

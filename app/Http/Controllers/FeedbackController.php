@@ -12,10 +12,18 @@ class FeedbackController extends Controller
     }
 
     public function save(Request $request) { // validate and save the feedback 
-        $validated = $request->validate([
+        $this->validate($request, [
+            'userName' => 'required', 
+            'feedbackTxt' => 'required'            
+        ], [], [
+            'userName' => "'Имя пользователя'", 
+            'feedbackTxt' => "'Комментарий / отзыв'"           
+        ]);
+        
+        /*$validated = $request->validate([
             'userName' => 'required', 
             'feedbackTxt' => 'required'
-        ]);
+        ]);*/
         
         //$ds = DIRECTORY_SEPARATOR;
         //$jsonFeedback = json_encode(array_merge(array('time' => time()), $request->only(['userName', 'feedbackTxt'])));

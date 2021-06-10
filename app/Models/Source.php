@@ -18,4 +18,22 @@ class Source extends Model
         'description',
         'status'
     ];
+
+    public static function rulesMain() {
+        return ([
+            'link' => 'required',
+            'descr' => 'required',
+            'status' => 'required'         
+        ]);
+    }
+    public static function attributesMain() {
+        return ([
+            'link' => "'Ссылка'",
+            'descr' => "'Описание'",
+            'status' => "'Статус'",         
+        ]);
+    }
+    public static function rulesAdditional() {
+        return (['link' => 'unique:sources,link']);
+    }
 }

@@ -37,6 +37,7 @@
         <form action="/srcadm/edit/{{ $source[0]->id }}" method='post'>
             @csrf
             <div style='display: inline-block; width: 200px'>Ссылка <span class='crimson'>*</span></div>
+            <input type='hidden' name='linkInitial'value="{{ $source[0]->link }}">
             <input type='text' name='link' style='width: 200px' value="{{ $source[0]->link }}">
             <br>
             <div style='display: inline-block; width: 200px'>Описание <span class='crimson'>*</span></div>
@@ -57,7 +58,8 @@
             </select> 
             <br>
             <br>
-            <button type='submit' id='submit'>Сохранить</button>
+            <a href="/sourcadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+            <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
         </form>
         @if($errors->any())
             <br>

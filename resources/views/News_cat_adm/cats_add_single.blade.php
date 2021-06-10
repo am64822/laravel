@@ -41,6 +41,7 @@
             @foreach($src_list as $value)
                 <option value="{{ $value->id }}">{{ $value->link }}</option>        
             @endforeach
+
             </select>       
             <br>    
             <div style='display: inline-block; width: 200px'>Наименование <span class='crimson'>*</span></div>
@@ -53,7 +54,8 @@
             </select> 
             <br>
             <br>
-            <button type='submit' id='submit'>Сохранить</button>
+            <a href="/catsadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+            <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
         </form>
         @if($errors->any())
             <br>

@@ -39,11 +39,13 @@ class Sources_admController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([ 
-            'link' => 'required',
+        $this->validate($request, Source::rulesMain(), [], Source::attributesMain()); 
+        $this->validate($request, Source::rulesAdditional(), [], Source::attributesMain()); 
+        /*$validated = $request->validate([ 
+            'link' => 'required|unique:sources,link',
             'descr' => 'required',
             'status' => 'required'
-        ]);
+        ]);*/
 
         $source = new Source();
         $source->link = $request->link;
@@ -88,11 +90,19 @@ class Sources_admController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([ 
+        $this->validate($request, Source::rulesMain(), [], Source::attributesMain());
+        /*$validated = $request->validate([ 
             'link' => 'required',
             'descr' => 'required',
             'status' => 'required'
-        ]);
+        ]);*/
+
+        if ($request->link != $request->linkInitial) {
+            $this->validate($request, Source::rulesAdditional(), [], Source::attributesMain()); 
+            /*$validated = $request->validate([ 
+                'link' => 'unique:sources,link'
+            ]);*/
+        }
 
         $source = (new Source())->where('id', '=', $id)->get();
         if ($source->count() == 1) {

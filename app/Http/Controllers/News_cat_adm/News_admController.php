@@ -16,7 +16,6 @@ class News_admController extends Controller
      */
     public function index()
     {
-        //dd('News_admController. Index');
         $news = (new News())->join('categories', 'news.category_id', '=', 'categories.id')->select('news.id', 'news.title as newstitle', 'categories.title as cattitle', 'news.content', 'news.picture', 'news.status as newsstatus', 'news.updated_at as newsupdat')->orderBy('newsupdat', 'desc')->get();
         //dd($news);
         return view('News_cat_adm/news_adm', ['news' => $news]);

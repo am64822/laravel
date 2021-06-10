@@ -12,12 +12,24 @@ class Download_requestController extends Controller
     }
 
     public function save(Request $request) { // validate and save the feedback 
-        $validated = $request->validate([
+        $this->validate($request, [
+            'userName' => 'required', 
+            'phone' => 'required|regex:/^\+[1-9]([0-9]{0,2})\([0-9]{3}\)[0-9]{7}$/',
+            'email' => 'required|email:rfc',
+            'content' => 'required'           
+        ], [], [
+            'userName' => "'Имя пользователя'",
+            'phone' => "'Телефон'",
+            'email' => "'E-Mail'",
+            'content' => "'Что необходимо'"          
+        ]);        
+        
+        /*$validated = $request->validate([
             'userName' => 'required', 
             'phone' => 'required|regex:/^\+[1-9]([0-9]{0,2})\([0-9]{3}\)[0-9]{7}$/',
             'email' => 'required|email:rfc',
             'content' => 'required'
-        ]);
+        ]);*/
         
         $downlreq = new Downlreq();
         $downlreq->user_name = $request->userName;
