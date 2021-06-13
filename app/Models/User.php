@@ -16,10 +16,12 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
+    //public $timestamps = false; // will be managed by DB
+     protected $fillable = [
         'name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -40,4 +42,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function rulesMain() {
+        return ([
+            'userName' => 'required',
+            'email' => 'required|email:rfc',
+            'is_admin' => 'required'          
+        ]);
+    }
+    public static function rulesAdditional() {
+        return (['email' => 'unique:users,email']);
+    }
+    public static function attributesMain() {
+        return ([
+            'userName' => "'Имя пользователя'",
+            'email' => "'E-Mail'",
+            'is_admin' => "'Админ'",         
+        ]);
+    }
 }

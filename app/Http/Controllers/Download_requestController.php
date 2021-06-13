@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Downlreq;
+use Auth;
 
 class Download_requestController extends Controller
 {
@@ -13,9 +14,9 @@ class Download_requestController extends Controller
 
     public function save(Request $request) { // validate and save the feedback 
         $this->validate($request, [
-            'userName' => 'required', 
+            //'userName' => 'required', 
             'phone' => 'required|regex:/^\+[1-9]([0-9]{0,2})\([0-9]{3}\)[0-9]{7}$/',
-            'email' => 'required|email:rfc',
+            //'email' => 'required|email:rfc',
             'content' => 'required'           
         ], [], [
             'userName' => "'Имя пользователя'",
@@ -31,10 +32,12 @@ class Download_requestController extends Controller
             'content' => 'required'
         ]);*/
         
+        $user = Auth::user();
+
         $downlreq = new Downlreq();
-        $downlreq->user_name = $request->userName;
+        $downlreq->user_name = $user->name;
         $downlreq->phone = $request->phone;
-        $downlreq->email = $request->email;
+        $downlreq->email = $user->email;
         $downlreq->content = $request->content;
         $downlreq->save();
 

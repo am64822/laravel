@@ -1,15 +1,15 @@
-{{-- добавление отдельного источника --}}
+{{-- изменение атрибутов пользователя --}}
 
 
 @extends('template')
 
 
 {{-- приходят извне 
-    nothing
+    $userToChange     -> single news
 --}}
 
 <?php
-    $pageTitle = 'Добавление источника';
+    $pageTitle = 'Изменение атрибуов пользователя';
     $user = Auth::user();
 ?>
 
@@ -49,22 +49,32 @@
 
 
 @section('content')   
-    <form action='/srcadm/add' method='post'>
-        @csrf   
-        <div style='display: inline-block; width: 200px'>Ссылка <span class='crimson'>*</span></div>
-        <input type='text' name='link' style='width: 200px' value="{{ old('link') }}">
+    <form action="/usersadm/edit/{{ $userToChange[0]->id }}" method='post'>
+        @csrf    
+        <div style='display: inline-block; width: 200px'>Имя пользователя<span class='crimson'> *</span></div>
+        <input type='hidden' name='userNameInitial'value="{{ $userToChange[0]->name }}">
+        <input type='text' name='userName' style='width: 200px' value="{{ $userToChange[0]->name }}">
         <br>
-        <div style='display: inline-block; width: 200px'>Описание <span class='crimson'>*</span></div>
-        <textarea name='descr' style='width: 202px; resize: none'>{{ old('descr') }}</textarea>
-        <br>
-        <div style='display: inline-block; width: 200px'>Статус</div>
-        <select style='width: 208px' id='selectedCategory' name='status'>
-            <option value='published' selected>Опубликовано</option>
-            <option value='hidden'>Скрыто</option>
+        <div style='display: inline-block; width: 200px'>E-Mail<span class='crimson'> *</span></div>
+        <input type='hidden' name='emailInitial'value="{{ $userToChange[0]->email }}">
+        <input type='text' name='email' style='width: 200px' value="{{ $userToChange[0]->email }}">
+        <br>        
+        <div style='display: inline-block; width: 200px'>Админ<span class='crimson'> *</span></div>
+        <select style='width: 208px' id='selectedAdminStatus' name='is_admin'>
+            <option value='1'
+            @if ($userToChange[0]->is_admin == 1)
+                    selected
+                @endif                 
+            >Да</option>
+            <option value='0'
+            @if ($userToChange[0]->is_admin == 0)
+                    selected
+            @endif                 
+            >Нет</option>
         </select> 
         <br>
         <br>
-        <a href="/sourcadm"><button type='button' id='back' class='form_button'>Назад</button></a>
+        <a href="/usersadm"><button type='button' id='back' class='form_button'>Назад</button></a>
         <button type='submit' id='submit' class='form_button form_button_marg_left'>Сохранить</button>
     </form>
     @if($errors->any())

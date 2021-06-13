@@ -178,6 +178,49 @@
     text-align: center;
 }
 
+
+.users_adm_header {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.users_adm_user {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 100%;    
+}
+
+.users_adm_user_id {
+    width: 40px;
+}
+
+.users_adm_user_name {
+    width: 150px;
+}
+
+.users_adm_user_email {
+    width: 250px;
+}
+
+.users_adm_user_isAdmin {
+    width: 40px;
+}
+
+.users_adm_user_timestamp {
+    width: 200px;
+}
+
+
+.users_adm_user_controls {
+    text-align: center;
+    width: 40px;
+}
+
+
+
+
 .form_button {
     width: 80px;
 }
@@ -196,4 +239,26 @@
 
 .delete_sign:hover {
     cursor: pointer;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navReg {
+    margin-right: 10px;
+}
+
+.navLast {
+    display: inline-block;
+    margin-left: auto;
+}
+
+.navLastLast {
+    margin-left: 10px;
+}
+
+.dontDisplay {
+    display: none;
 }

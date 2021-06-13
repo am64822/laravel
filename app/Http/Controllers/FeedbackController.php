@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
+use Auth;
 
 class FeedbackController extends Controller
 {
@@ -13,7 +14,7 @@ class FeedbackController extends Controller
 
     public function save(Request $request) { // validate and save the feedback 
         $this->validate($request, [
-            'userName' => 'required', 
+            //'userName' => 'required', 
             'feedbackTxt' => 'required'            
         ], [], [
             'userName' => "'Имя пользователя'", 
@@ -30,8 +31,10 @@ class FeedbackController extends Controller
         //dd($jsonFeedback);
         //file_put_contents(database_path().$ds.'feedback', $jsonFeedback.PHP_EOL, FILE_APPEND);
 
+        $user = Auth::user();
+
         $feedback = new Feedback();
-        $feedback->user_name = $request->userName;
+        $feedback->user_name = $user->name;
         $feedback->feedbacktxt = $request->feedbackTxt;
         $feedback->save();
 
