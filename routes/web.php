@@ -5,6 +5,8 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\{CategoriesController, FeedbackController, Download_requestController};
 use App\Http\Controllers\News_cat_adm\{Sources_admController, Cats_admController, News_admController};
 use App\Http\Controllers\UsersAdm\{UsersAdmController};
+use App\Http\Controllers\Parser\ParserController;
+use App\Http\Controllers\SocialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +79,17 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function() {
     Route::get('/usersadm/edit/{id}', [UsersAdmController::class, 'edit']); // изменение атрибутов пользователя, показать форму
     Route::post('/usersadm/edit/{id}', [UsersAdmController::class, 'update']); // изменение атрибутов пользователя, сохранить
     Route::delete('/usersadm/del/{id}', [UsersAdmController::class, 'destroy']); // удаление пользователя
+
+    Route::get('/newsImport', [ParserController::class, 'index']); // получение данных из внешнего источника
+
 });
 
 Route::get('/reset-password', function () {
     return view('main');
+});
+
+
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/login/vk', [SocialController::class, 'login'])->name('vk.login');
+    Route::get('/callback/vk', [SocialController::class, 'callback'])->name('vk.callback');
 });

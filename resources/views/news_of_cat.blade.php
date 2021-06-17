@@ -31,7 +31,7 @@
 @section('content')
     @if ($cat_exists == true) 
         @forelse($newsofcat as $value)
-            <div><a href="/news/{{ $value->id }}">{{ $value->title }}</a></div>       
+            <div class='news_title'><a href="/news/{{ $value->id }}">{{ $value->title }}</a></div>       
         @empty
             <div style='color: crimson'>Новостей указанной категории нет</div>
         @endforelse

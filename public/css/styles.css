@@ -26,8 +26,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: 50%;
-}
+    width: 100%;
+}  
 
 .news_content {
     width: 400px;
@@ -35,8 +35,9 @@
 }
 
 .news_title {
-    width: 200px;
+    width: 100%;
     text-align: left;
+    margin-bottom: 10px;
 }
 
 .news_change {
@@ -106,11 +107,14 @@
 }
 
 .cats_adm_cat_source {
-    width: 150px;
+    width: 200px;
+    overflow-wrap: break-word;
+
 }
 
 .cats_adm_cat_title {
     width: 250px;
+    overflow-wrap: break-word;
 }
 
 .cats_adm_cat_content {
@@ -142,7 +146,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: nowrap;
-    width: 100%;    
+    width: 100%;
+    margin-bottom: 10px;    
 }
 
 .news_adm_news_id {

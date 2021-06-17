@@ -55,6 +55,7 @@
             <li><a href='/catsadm'>Управление категориями</a></li>
             <li><a href='/sourcadm'>Управление источниками</a></li>
             <li><a href='/usersadm'>Управление пользователями</a></li>
+            <li><a href='/newsImport'>Загрузка данных из внешнего источника</a></li>
         </ul>
     </div>
 @endsection

@@ -14,7 +14,7 @@ class SourcesCategoriesNewsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sources')->insert([
+        /*DB::table('sources')->insert([
             ['link' => 'https://testsource1.com', 'descr' => 'Источник 1'],
             ['link' => 'https://testsource2.com', 'descr' => 'Источник 2'],
             ['link' => 'https://testsource3.com', 'descr' => 'Источник 3'],
@@ -54,6 +54,6 @@ class SourcesCategoriesNewsSeeder extends Seeder
             }
         }
 
-        DB::table('news')->insert($news_array);
+        DB::table('news')->insert($news_array);*/
     }
 }

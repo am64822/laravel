@@ -94,6 +94,8 @@
                             </div>
                         </div>
                     </form>
+                    <br>
+                    <a href="/login/vk">Вход через VK</a><br>
                 </div>
             </div>
         </div>
