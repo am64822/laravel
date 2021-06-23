@@ -82,6 +82,8 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function() {
 
     Route::get('/newsImport', [ParserController::class, 'index']); // получение данных из внешнего источника
 
+    Route::post('ckeditor/image_upload', [News_admController::class, 'upload'])->name('upload'); // загрузка картинок
+
 });
 
 Route::get('/reset-password', function () {
@@ -92,4 +94,10 @@ Route::get('/reset-password', function () {
 Route::group(['middleware' => 'guest'], function() {
     Route::get('/login/vk', [SocialController::class, 'login'])->name('vk.login');
     Route::get('/callback/vk', [SocialController::class, 'callback'])->name('vk.callback');
+});
+
+
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth', 'isAdmin']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });

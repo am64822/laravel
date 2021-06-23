@@ -12,6 +12,8 @@
 <?php
     $pageTitle = 'Изменение новости';
     $user = Auth::user();
+    $ds = DIRECTORY_SEPARATOR;
+    $CKEditorPath =  URL::asset('js' . $ds . 'ckeditor' . $ds . 'ckeditor.js');
 ?>
 
 
@@ -55,10 +57,10 @@
     @elseif (count($news) != 1)
         <div class='crimson'><br><br>Запрошенная новость не существует</div>
     @else    
-        <form action="/newsadm/edit/{{ $news[0]->id }}" method='post'>
+        <form action="/newsadm/edit/{{ $news[0]->id }}" method='post' enctype='multipart/form-data'>
             @csrf
             <div style='display: inline-block; width: 200px'>Категория</div>
-            <select style='width: 208px' id='selectedCategory' name='category_id'>
+            <select style='width: 408px' id='selectedCategory' name='category_id'>
             @foreach($cats_list as $value)                
                 <option value="{{ $value->id }}"
                 @if ($news[0]->category_id == $value->id)
@@ -69,13 +71,13 @@
             </select>       
             <br>    
             <div style='display: inline-block; width: 200px'>Заголовок <span class='crimson'>*</span></div>
-            <input type='text' name='title' style='width: 200px' value="{{ $news[0]->title }}" id='title'>
+            <input type='text' name='title' style='width: 400px' value="{{ $news[0]->title }}" id='title'>
             <br>
             <div style='display: inline-block; width: 200px'>Содержание <span class='crimson'>*</span></div>
-            <textarea name='content' style='width: 202px; resize: none'>{{ $news[0]->content }}</textarea>
+            <textarea name='content' id='content' style='width: 402px; resize: none'>{!! $news[0]->content !!}</textarea>
             <br>
             <div style='display: inline-block; width: 200px'>Статус</div>
-            <select style='width: 208px' id='selectedCategory' name='status'>
+            <select style='width: 408px' id='selectedStatus' name='status'>
                 <option value='draft'
                     @if ($news[0]->status == 'draft')
                         selected
@@ -106,5 +108,26 @@
             @endforeach
         @endif
     @endif
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(event) {
+            var options = {
+            //filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            //filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+            //filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token=',
+            filebrowserUploadMethod: 'form'
+            };           
+            CKEDITOR.replace('content', options);
+
+            /*(CKEDITOR.replace( 'content', {
+                filebrowserUploadUrl: "{{route('upload', ['_token' => csrf_token() ])}}",
+                filebrowserUploadMethod: 'form'
+            });*/
+        });
+        
+    </script>
+
 @endsection
 

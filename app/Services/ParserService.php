@@ -6,13 +6,20 @@ use App\Models\News;
 use App\Models\Category;
 use App\Models\Source;
 
-class ParserYandexArmyService 
+class ParserService 
 {
-    public function parseAndSave() {
+    public function parseAndSave($url) {
     
         $soFarsoGood = true;
             
-        $xml = XmlParser::load('https://news.yandex.ru/army.rss');
+        try {
+            $xml = XmlParser::load($url);
+        } catch (Exception $e) {
+            $soFarsoGood = false;
+            return;
+        }
+        
+        
         $data = $xml->parse([
             'title' => ['uses' => 'channel.title'],
             'link' => ['uses' => 'channel.link'],
@@ -21,19 +28,17 @@ class ParserYandexArmyService
             'news' => ['uses' => 'channel.item[title,link,guid,description,pubDate]'],
         ]);
 
-        $source = Source::where('link', '=', $data['link'])->get();
+        $source = Source::where('link', '=', $url)->get();
         if($source->count() == 0) {
-            $source = new Source();
-            $source->link = $data['link'];
-            $source->descr = $data['title'];
-            $source->status = 'published';
-            $source->save();
-            $categorySourceId = $source->id;
+            // DB consistency error
+            $soFarsoGood = false;
+            return;
         } elseif ($source->count() == 1) {
             $categorySourceId = $source[0]->id;
         } else {
             // DB consistency error
             $soFarsoGood = false;
+            return;
         }
 
         $category = Category::where('title', '=', $data['title'])->get();
@@ -49,6 +54,7 @@ class ParserYandexArmyService
         } else {
             // DB consistency error
             $soFarsoGood = false;
+            return;
         }
 
         $news = $data['news'];

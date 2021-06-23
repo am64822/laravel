@@ -48,7 +48,7 @@
     @forelse($news_single as $value)
         <div><b>{{ $value->title }}</b><br>
         Дата изменения: {{ $value->updated_at }}<br><br>
-        {{ $value->content }}
+        {!! $value->content !!}
         </div>
         <?php
             $pageTitle .= $value->id;

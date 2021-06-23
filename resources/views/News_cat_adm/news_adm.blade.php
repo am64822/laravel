@@ -89,7 +89,7 @@
             <div class='news_adm_news_id'>{{ $item->id }}</div>
             <div class='news_adm_news_cat'>{{ $item->cattitle }}</div>
             <div class='news_adm_news_title'>{{ $item->newstitle }}</div>
-            <div class='news_adm_news_content'>{{ $item->content }}</div>
+            <div class='news_adm_news_content'>{!! $item->content !!}</div>
             {{-- <div class='news_adm_news_picture'>{{ $item->picture }}</div> --}}
             <div class='news_adm_news_status'>{{ $item->newsstatus }}</div>
             <div class='news_adm_news_timestamp'>{{ $item->newsupdat }}</div>

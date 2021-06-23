@@ -90,6 +90,9 @@ class News_admController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+        
+        
         $validated = $request->validate([ 
             'category_id' => 'required',
             'title' => 'required',
@@ -124,4 +127,43 @@ class News_admController extends Controller
         }
         return redirect('/newsadm');
     }
+
+    public function upload(Request $request)
+    {
+        
+        
+        if($request->hasFile('upload')) {
+            //dd('here');
+            //get filename with extension
+            $filenamewithextension = $request->file('upload')->getClientOriginalName();
+      
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+      
+            //get file extension
+            $extension = $request->file('upload')->getClientOriginalExtension();
+
+            
+
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+            
+            $ds = DIRECTORY_SEPARATOR;
+
+            //Upload File
+            $request->file('upload')->storeAs("public{$ds}files{$ds}shares/", $filenametostore);
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            
+            
+            $url = asset("storage{$ds}files{$ds}shares/".$filenametostore);
+            $msg = 'Image successfully uploaded';
+            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+             
+            // Render HTML output
+            @header('Content-type: text/html; charset=utf-8');
+            echo $re;
+        }
+    }
+
 }

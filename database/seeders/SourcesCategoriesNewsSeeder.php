@@ -14,19 +14,25 @@ class SourcesCategoriesNewsSeeder extends Seeder
      */
     public function run()
     {
-        /*DB::table('sources')->insert([
-            ['link' => 'https://testsource1.com', 'descr' => 'Источник 1'],
-            ['link' => 'https://testsource2.com', 'descr' => 'Источник 2'],
-            ['link' => 'https://testsource3.com', 'descr' => 'Источник 3'],
-            ['link' => 'https://testsource4.com', 'descr' => 'Источник 4'],
-            ['link' => 'https://testsource5.com', 'descr' => 'Источник 5'],
-            ['link' => 'https://testsource6.com', 'descr' => 'Источник 6'],
-            ['link' => 'https://testsource7.com', 'descr' => 'Источник 7'],
-            ['link' => 'https://testsource8.com', 'descr' => 'Источник 8'],
-            ['link' => 'https://testsource9.com', 'descr' => 'Источник 9'],
-            ['link' => 'https://testsource10.com', 'descr' => 'Источник 10']
+        DB::table('sources')->insert([
+            ['link' => 'https://news.yandex.ru/auto.rss', 'descr' => 'Яндекс.Новости: Авто'],
+            ['link' => 'https://news.yandex.ru/auto_racing.rss', 'descr' => 'Яндекс.Новости: Автоспорт'],
+            ['link' => 'https://news.yandex.ru/army.rss', 'descr' => 'Яндекс.Новости: Армия и оружие'],
+            ['link' => 'https://news.yandex.ru/gadgets.rss', 'descr' => 'Яндекс.Новости: Гаджеты'],
+            ['link' => 'https://news.yandex.ru/index.rss', 'descr' => 'Яндекс.Новости: Главное'],
+            ['link' => 'https://news.yandex.ru/martial_arts.rss', 'descr' => 'Яндекс.Новости: Единоборства'],
+            ['link' => 'https://news.yandex.ru/communal.rss', 'descr' => 'Яндекс.Новости: ЖКХ'],
+            ['link' => 'https://news.yandex.ru/health.rss', 'descr' => 'Яндекс.Новости: Здоровье'],
+            ['link' => 'https://news.yandex.ru/games.rss', 'descr' => 'Яндекс.Новости: Игры'],
+            ['link' => 'https://news.yandex.ru/internet.rss', 'descr' => 'Яндекс.Новости: Интернет'],
+            ['link' => 'https://news.yandex.ru/cyber_sport.rss', 'descr' => 'Яндекс.Новости: Киберспорт'],
+            ['link' => 'https://news.yandex.ru/movies.rss', 'descr' => 'Яндекс.Новости: Кино'],
+            ['link' => 'https://news.yandex.ru/cosmos.rss', 'descr' => 'Яндекс.Новости: Космос'],
+            ['link' => 'https://news.yandex.ru/culture.rss', 'descr' => 'Яндекс.Новости: Культура'],
+            ['link' => 'https://news.yandex.ru/music.rss', 'descr' => 'Яндекс.Новости: Музыка'],
+            ['link' => 'https://news.yandex.ru/nhl.rss', 'descr' => 'Яндекс.Новости: НХЛ']
         ]);
-
+        /*        
         DB::table('categories')->insert([
             ['source_id' => '1', 'title' => 'Категория 1'],
             ['source_id' => '2', 'title' => 'Категория 2'],
